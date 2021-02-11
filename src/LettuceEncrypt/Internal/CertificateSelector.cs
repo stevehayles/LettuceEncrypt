@@ -16,10 +16,10 @@ namespace LettuceEncrypt.Internal
     internal class CertificateSelector : IServerCertificateSelector
     {
         private readonly ConcurrentDictionary<string, X509Certificate2> _certs =
-            new ConcurrentDictionary<string, X509Certificate2>(StringComparer.OrdinalIgnoreCase);
+            new(StringComparer.OrdinalIgnoreCase);
 
         private readonly ConcurrentDictionary<string, X509Certificate2> _challengeCerts =
-            new ConcurrentDictionary<string, X509Certificate2>(StringComparer.OrdinalIgnoreCase);
+            new(StringComparer.OrdinalIgnoreCase);
 
         private readonly IOptions<LettuceEncryptOptions> _options;
         private readonly ILogger<CertificateSelector> _logger;
@@ -76,7 +76,7 @@ namespace LettuceEncrypt.Internal
 
         public X509Certificate2? Select(ConnectionContext context, string? domainName)
         {
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
             if (_challengeCerts.Count > 0)
             {
                 // var sslStream = context.Features.Get<SslStream>();

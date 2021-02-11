@@ -1,11 +1,13 @@
-﻿using System.Linq;
+﻿// Copyright (c) Nate McMaster.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Security.KeyVault.Certificates;
 using Azure.Security.KeyVault.Secrets;
-using LettuceEncrypt.UnitTests;
-using LettuceEncrypt;
 using LettuceEncrypt.Azure.Internal;
+using LettuceEncrypt.UnitTests;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
@@ -76,7 +78,7 @@ namespace LettuceEncrypt.Azure.UnitTests
             certClientFactory.Setup(c => c.Create()).Returns(certClient.Object);
             var options = Options.Create(new LettuceEncryptOptions());
 
-            options.Value.DomainNames = new[] {Domain1, Domain2};
+            options.Value.DomainNames = new[] { Domain1, Domain2 };
 
             var repository = new AzureKeyVaultCertificateRepository(
                 certClientFactory.Object,
@@ -106,7 +108,7 @@ namespace LettuceEncrypt.Azure.UnitTests
             secretClientFactory.Setup(c => c.Create()).Returns(secretClient.Object);
             var options = Options.Create(new LettuceEncryptOptions());
 
-            options.Value.DomainNames = new[] {Domain1, Domain2};
+            options.Value.DomainNames = new[] { Domain1, Domain2 };
 
             var repository = new AzureKeyVaultCertificateRepository(
                 Mock.Of<ICertificateClientFactory>(),

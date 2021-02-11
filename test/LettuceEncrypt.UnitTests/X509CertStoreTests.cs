@@ -1,7 +1,9 @@
-﻿using System;
+﻿// Copyright (c) Nate McMaster.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using LettuceEncrypt;
 using LettuceEncrypt.Internal;
 using McMaster.Extensions.Xunit;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -35,12 +37,12 @@ namespace LettuceEncrypt.UnitTests
         }
 
         [SkippableFact]
-        [SkipOnAzurePipelinesWindows(SkipReason =
-            "On Windows in Azure Pipelines, adding certs to store doesn't work for unclear reasons.")]
+        [SkipOnWindowsCIBuild(SkipReason =
+            "On Windows in CI, adding certs to store doesn't work for unclear reasons.")]
         public async Task ItFindsCertByCommonNameAsync()
         {
             var commonName = "x509store.read.test.natemcmaster.com";
-            _options.DomainNames = new[] {commonName};
+            _options.DomainNames = new[] { commonName };
             using var x509Store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
             x509Store.Open(OpenFlags.ReadWrite);
             var testCert = CreateTestCert(commonName);
@@ -62,8 +64,8 @@ namespace LettuceEncrypt.UnitTests
         }
 
         [SkippableFact]
-        [SkipOnAzurePipelinesWindows(SkipReason =
-            "On Windows in Azure Pipelines, adding certs to store doesn't work for unclear reasons.")]
+        [SkipOnWindowsCIBuild(SkipReason =
+            "On Windows in CI, adding certs to store doesn't work for unclear reasons.")]
         public async Task ItSavesCertificates()
         {
             var commonName = "x509store.save.test.natemcmaster.com";
@@ -97,7 +99,7 @@ namespace LettuceEncrypt.UnitTests
         public async Task ItReturnsEmptyWhenCantFindCertAsync()
         {
             var commonName = "notfound.test.natemcmaster.com";
-            _options.DomainNames = new[] {commonName};
+            _options.DomainNames = new[] { commonName };
             var certs = await _certStore.GetCertificatesAsync(default);
             Assert.Empty(certs);
         }

@@ -15,7 +15,8 @@
     <WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
     <IncludeSymbols>true</IncludeSymbols>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\StrongName.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <NoWarn>$(NoWarn);NU5105</NoWarn>
@@ -34,7 +35,7 @@
   <PropertyGroup>
     <VersionPrefix>1.1.0</VersionPrefix>
     <VersionSuffix>beta</VersionSuffix>
-    <IncludePreReleaseLabelInPackageVersion Condition="'$(IsStableBuild)' != 'true'">true</IncludePreReleaseLabelInPackageVersion>
+    <IncludePreReleaseLabelInPackageVersion Condition="'$(IS_STABLE_BUILD)' != 'true'">true</IncludePreReleaseLabelInPackageVersion>
     <BuildNumber Condition=" '$(BuildNumber)' == '' ">$([MSBuild]::ValueOrDefault($(BUILD_NUMBER), 0))</BuildNumber>
     <VersionSuffix>$(VersionSuffix).$(BuildNumber)</VersionSuffix>
     <SourceRevisionId Condition="'$(SourceRevisionId)' == ''">$(BUILD_SOURCEVERSION)</SourceRevisionId>

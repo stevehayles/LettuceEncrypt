@@ -1,8 +1,10 @@
+// Copyright (c) Nate McMaster.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
-using LettuceEncrypt;
 using LettuceEncrypt.Internal;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
@@ -17,7 +19,7 @@ namespace LettuceEncrypt.UnitTests
         public async Task ItLoadsAllCertsIntoSelector()
         {
             var testCert = new X509Certificate2();
-            IEnumerable<X509Certificate2> certs = new[] {testCert};
+            IEnumerable<X509Certificate2> certs = new[] { testCert };
 
             var selector = new Mock<CertificateSelector>(
                 Options.Create(new LettuceEncryptOptions()),
@@ -31,7 +33,7 @@ namespace LettuceEncrypt.UnitTests
             var source2 = CreateCertSource(certs);
 
             var startupLoader = new StartupCertificateLoader(
-                new[] {source1.Object, source2.Object},
+                new[] { source1.Object, source2.Object },
                 selector.Object);
 
             await startupLoader.StartAsync(default);
